@@ -3,13 +3,21 @@ import React from "react"
 
 export default function Meme() {
 
-    const [memeImage, setMemeImage] = React.useState("")
+    const [meme, setMeme] = React.useState({
+        topText: "",
+        bottomText: "",
+        randomImage: ""
+    })
+
+    const [allMemeImages, setAllMemeImages] = React.useState(memesData)
 
     function getMemeImage() {
-        const memesArray = memesData.data.memes
+        const memesArray = allMemeImages.data.memes
         const randomNumber = Math.floor(Math.random() * memesArray.length)
         const url = memesArray[randomNumber].url
-        setMemeImage(url)
+        setMeme(
+            prevState => ({ ...prevState, randomImage: url })
+        )
     }
     return (
         <main>
@@ -32,7 +40,7 @@ export default function Meme() {
                     <img src="./src/assets/frame.png" width="25px" height="25px" />
                 </button>
             </div>
-            <img className="memeImage" src={memeImage} />
+            <img className="memeImage" src={meme.randomImage} />
         </main>
     )
 }
@@ -70,4 +78,28 @@ export default function Meme() {
 
 // function handleClick() {
 //     setIsGoingOut(prevValue => !prevValue)
+// }
+
+// SPREAD OPERATOR POUR AJOUTER DES CHOSES DANS UN TABLEAU
+
+// function addItem() {
+//     setThingsArray(prevThingsArray => {
+//         return [...prevThingsArray, `Thing ${prevThingsArray.length + 1}`]
+//     })
+// }
+
+// SPREAD OPERATOR + TERNAIRE POUR MODIFIER LA PROPRIETE D'UN OBJET
+
+// function toggleFavorite() {
+//     setContact(prevContact => ({ ...prevContact, isFavorite: !prevContact.isFavorite }))
+// }
+
+// Mettre à jour l'état d'un objet bien précis à partir de son id 
+
+// function toggle(id) {
+//     setSquares(prevState => {
+//         const updatedSquares = [...prevState];
+//         updatedSquares[id - 1] = { ...prevState[id - 1], on: !prevState[id - 1].on };
+//         return updatedSquares;
+//     });
 // }
