@@ -95,11 +95,19 @@ export default function Meme() {
 // }
 
 // Mettre à jour l'état d'un objet bien précis à partir de son id 
+// Ne pas oublier de passer l'id dans le composant 
+/* <Box
+    key={square.id}
+    on={square.on}
+    toggle={() => toggle(square.id)}
+/> */
+
 
 // function toggle(id) {
-//     setSquares(prevState => {
-//         const updatedSquares = [...prevState];
-//         updatedSquares[id - 1] = { ...prevState[id - 1], on: !prevState[id - 1].on };
-//         return updatedSquares;
-//     });
+//     setSquares(
+//         prevSquares => {
+//             return prevSquares.map(square => {
+//                 return square.id === id ? { ...square, on: !square.on } : square
+//             })
+//         })
 // }
