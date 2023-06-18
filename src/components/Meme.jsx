@@ -1,21 +1,39 @@
-import memesData from "../memesData.js"
 import React from "react"
 
 export default function Meme() {
+    /**
+         * Challenge: 
+         * As soon as the Meme component loads the first time,
+         * make an API call to "https://api.imgflip.com/get_memes".
+         * 
+         * When the data comes in, save just the memes array part
+         * of that data to the `allMemes` state
+         * 
+         * Think about if there are any dependencies that, if they
+         * changed, you'd want to cause to re-run this function.
+         * 
+         * Hint: for now, don't try to use an async/await function.
+         * Instead, use `.then()` blocks to resolve the promises
+         * from using `fetch`. We'll learn why after this challenge.
+         */
 
     const [meme, setMeme] = React.useState({
         topText: "",
         bottomText: "",
         randomImage: ""
     })
+    const [allMemes, setAllMemes] = React.useState()
 
-    const [allMemeImages, setAllMemeImages] = React.useState(memesData)
+    React.useEffect(() => {
+        fetch("https://api.imgflip.com/get_memes")
+            .then(res => res.json())
+            .then(data => setAllMemes(data.data.memes))
+    }, [])
+
 
     function getMemeImage() {
-        const memesArray = allMemeImages.data.memes
-        const randomNumber = Math.floor(Math.random() * memesArray.length)
-        console.log(randomNumber)
-        const url = memesArray[randomNumber].url
+        const randomNumber = Math.floor(Math.random() * allMemes.length)
+        const url = allMemes[randomNumber].url
         setMeme(
             prevState => ({ ...prevState, randomImage: url })
         )
@@ -128,3 +146,20 @@ export default function Meme() {
 //             })
 //         })
 // }
+
+
+// useEffect ET fonction de CLEANUP 
+
+// React.useEffect(() => {
+//     function watchWidth() { 
+//         console.log("Setting up...")
+//         setWindowWidth(window.innerWidth)
+//     }
+    
+//     window.addEventListener("resize", watchWidth)
+    
+//     return () => {
+//         console.log("Cleaning up...")
+//         window.removeEventListener("resize", watchWidth)
+//     }
+// }, [])
