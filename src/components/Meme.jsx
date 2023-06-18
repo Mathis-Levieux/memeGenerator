@@ -14,33 +14,50 @@ export default function Meme() {
     function getMemeImage() {
         const memesArray = allMemeImages.data.memes
         const randomNumber = Math.floor(Math.random() * memesArray.length)
+        console.log(randomNumber)
         const url = memesArray[randomNumber].url
         setMeme(
             prevState => ({ ...prevState, randomImage: url })
         )
     }
+
+    function handleChange(event) {
+        const { name, value } = event.target
+        setMeme(prevState => ({
+            ...prevState, [name]: value
+        }))
+    }
+
     return (
         <main>
             <div className="form" id="form1">
                 <div className="input--wrapper">
                     <input
                         type="text"
-                        id="firstinput"
-                        name="firstinput"
-                        placeholder="Top text" />
+                        name="topText"
+                        placeholder="Top text"
+                        onChange={handleChange}
+                        value={meme.topText}
+                    />
 
                     <input
                         type="text"
-                        id="secondinput"
-                        name="secondinput"
-                        placeholder="Bottom text" />
+                        name="bottomText"
+                        placeholder="Bottom text"
+                        onChange={handleChange}
+                        value={meme.bottomText}
+                    />
                 </div>
                 <button onClick={getMemeImage}>
                     Get a new meme image
                     <img src="./src/assets/frame.png" width="25px" height="25px" />
                 </button>
             </div>
-            <img className="memeImage" src={meme.randomImage} />
+            <div className="meme">
+                <img src={meme.randomImage} className="meme--image" />
+                <h2 className="meme--text top">{meme.topText}</h2>
+                <h2 className="meme--text bottom">{meme.bottomText}</h2>
+            </div>
         </main>
     )
 }
@@ -94,8 +111,8 @@ export default function Meme() {
 //     setContact(prevContact => ({ ...prevContact, isFavorite: !prevContact.isFavorite }))
 // }
 
-// Mettre à jour l'état d'un objet bien précis à partir de son id 
-// Ne pas oublier de passer l'id dans le composant 
+// Mettre à jour l'état d'un objet bien précis à partir de son id
+// Ne pas oublier de passer l'id dans le composant
 /* <Box
     key={square.id}
     on={square.on}
