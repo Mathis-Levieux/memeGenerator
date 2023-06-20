@@ -131,6 +131,7 @@ export default function Meme() {
 
 // Mettre à jour l'état d'un objet bien précis à partir de son id
 // Ne pas oublier de passer l'id dans le composant
+// PAR DEFAUT, UNE FONCTION PASSEE EN PROPS PREND L'EVENT EN PARAMETRE. POUR CONTOURNER ET PASSER D'AUTRES CHOSES EN PARAMETRES, ON AJOUTE UNE CALLBACK
 /* <Box
     key={square.id}
     on={square.on}
@@ -201,4 +202,3 @@ function, as seen below:
 //       return [updatedNote, ...otherNotes];
 //     });
 //   }
-  
